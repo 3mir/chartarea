@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Area</title>
+</head>
+<body>
+
+    <div>
+        <canvas id="myChart"></canvas>
+      </div>
+
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+const data = {
+  labels:  [
+  '2015',
+  '2016',
+  '2017',
+  '2018',
+  '2019',
+  '2020',
+  ],
+  datasets: [
+    {
+      label: 'Trabajadores en PyMES',
+      data: [2992080, 3847782, 3750206, 3485058, 3649335, 5181860],
+      borderColor: 'rgb(68, 160, 277, 1)',
+      backgroundColor: 'rgb(68, 160, 277,.5)',
+      fill: true
+    },
+    {
+      label: 'Trabajadores en Micro empresas',
+      data: [8703189, 9229781, 8995722, 8935054, 8753761, 10328517],
+      borderColor: 'rgb(60, 133, 125, 1)',
+      backgroundColor: 'rgb(60, 133, 125,.5)',
+      fill: true
+    },
+    {
+      label: 'Trabajadores MiPyMES',
+      data: [11695270, 13077563, 12745928, 12420113, 12403097, 15510378],
+      borderColor: 'rgb(213, 244, 255,1)',
+      backgroundColor: 'rgb(213, 244, 255,.5)',
+      fill: true
+    }
+  ]
+};
+const config = {
+  type: 'line',
+  data: data,
+  options: {
+    responsive: true,
+    scales: {
+      x: {
+        display: true,
+        title: {
+          display: true,
+          text: 'Año',
+          color: '#707070',
+          font: {
+            family: 'Oxygen',
+            size: 20,
+            weight: 'normal',
+            lineHeight: 1.2,
+          },
+          padding: {top: 20, left: 0, right: 0, bottom: 0}
+        }
+      },
+      y: {
+        display: true,
+        title: {
+          display: true,
+          text: 'Cantidad de trabajadores',
+          color: '#707070',
+          font: {
+            family: 'Oxygen',
+            size: 20,
+            style: 'normal',
+            lineHeight: 1.2
+          },
+          padding: {top: 30, left: 0, right: 0, bottom: 0}
+        }
+      }
+    },
+    plugins: {
+      filler: {
+        propagate: false,
+      },
+      title: {
+        display: true,
+        text: (ctx) => 'Cantidad de trabajadores en las MiPyMES 2015 - 2020',
+        font: {
+            family: 'Playfair Display SC',
+            size: 25,
+            weight: 'normal',
+            lineHeight: 2,
+          },
+          responsive: true,    
+      },
+    },
+    pointBackgroundColor: '#fff',
+    radius: 10,
+    interaction: {
+      intersect: false,
+    }
+  },
+};
+const inputs = {
+  min: -100,
+  max: 100,
+  count: 8,
+  decimals: 2,
+  continuity: 1
+};
+
+const generateLabels = () => {
+  return Utils.months({count: inputs.count});
+};
+
+Utils.srand(3);
+const generateData = () => (Utils.numbers(inputs));
+let smooth = false;
+
+const actions = [
+  {
+    name: 'Smooth',
+    handler(chart) {
+      smooth = !smooth;
+      chart.options.elements.line.tension = smooth ? 0.4 : 0;
+      chart.update();
+    }
+  }
+];
+</script>
+
+<script>
+    // === include 'setup' then 'config' above ===
+  
+    var myChart = new Chart(
+      document.getElementById('myChart'),
+      config
+    );
+  </script>
+
+    <!-- D3 --> 
+<script src="https://d3js.org/d3.v6.min.js"></script>
+
+<!-- JS -->
+<script src="/js/main.js"></script>
+
+<!-- JQuery first, then Popper.js, then Bootstrap JS -->
+<script src="bootstrap-4.4.1-dist/js/jquery-3.4.1.slim.min.js"></script>
+<script src="bootstrap-4.4.1-dist/js/popper.min.js"></script>
+<script src="bootstrap-4.4.1-dist/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4"></script>
+</body>
+</html>
